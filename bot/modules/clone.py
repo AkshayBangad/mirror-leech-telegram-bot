@@ -1,6 +1,6 @@
 import random
 import string
-
+import traceback
 from telegram.ext import CommandHandler
 
 from bot.helper.mirror_utils.upload_utils.gdriveTools import GoogleDriveHelper
@@ -49,6 +49,8 @@ def cloneNode(update, context):
         except DirectDownloadLinkException as e:
             deleteMessage(context.bot, msg)
             return sendMessage(str(e), context.bot, update)
+        except Exception as err:
+            traceback.print_exc()
     if "hubdrive.in" in link:
         try:
             msg = sendMessage(f"Processing: <code>{link}</code>", context.bot, update)
@@ -57,6 +59,8 @@ def cloneNode(update, context):
         except DirectDownloadLinkException as e:
             deleteMessage(context.bot, msg)
             return sendMessage(str(e), context.bot, update)
+        except Exception as err:
+            traceback.print_exc()
     if is_gdrive_link(link):
         gd = GoogleDriveHelper()
         res, size, name, files = gd.helper(link)
