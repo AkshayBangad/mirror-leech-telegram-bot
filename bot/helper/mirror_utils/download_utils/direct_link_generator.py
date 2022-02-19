@@ -141,7 +141,6 @@ class HubDrive:
             res = self.client.post(req_url, headers=headers, data=data).json()['file']
         except:
             raise DirectDownloadLinkException("Failed to process!")
-        gd_id = re.findall('gd=(.*)', res, re.DOTALL)[0]
         return f"https://drive.google.com/open?id={gd_id}"
 
 
